@@ -1,18 +1,20 @@
 public class PalindromeChecker {
     public static void main(String[] args) {
 
-        String Word = "madam";
+        String input = "madam";
+        boolean isPalindrome = true;
 
-        StringBuilder reversed = new StringBuilder();
-
-        for (int i = Word.length() - 1; i >= 0; i--) {
-            reversed.append(Word.charAt(i));
+        for (int i = 0; i < input.length() / 2; i++) {
+            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        if (Word.equals(reversed.toString())) {
-            System.out.println(Word + " is a palindrome.");
+        if (isPalindrome) {
+            System.out.println(input + " is a palindrome.");
         } else {
-            System.out.println(Word + " is not a palindrome.");
+            System.out.println(input + " is not a palindrome.");
         }
     }
 }
