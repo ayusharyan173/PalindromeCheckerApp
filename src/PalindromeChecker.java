@@ -1,66 +1,30 @@
-class Node {
-    char data;
-    Node next;
-
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class PalindromeChecker {
-    private static Node buildList(String input) {
-        Node head = null, tail = null;
-        for (char c : input.toCharArray()) {
-            Node newNode = new Node(c);
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-        return head;
-    }
+    public static boolean isPalindrome(String str) {
 
-    private static Node reverse(Node head) {
-        Node prev = null, curr = head, next;
-        while (curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        return prev;
-    }
+        str = str.replaceAll("\\s+", "").toLowerCase();
 
-    private static boolean isPalindrome(Node head) {
-        if (head == null || head.next == null) return true;
+        int start = 0;
+        int end = str.length() - 1;
 
-        Node slow = head, fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        Node secondHalf = reverse(slow);
-
-        Node firstHalf = head;
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end)) {
                 return false;
             }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
+            start++;
+            end--;
         }
+
         return true;
     }
 
     public static void main(String[] args) {
-        String input = "level";
-        Node head = buildList(input);
-        boolean result = isPalindrome(head);
-        System.out.println("Is Palindrome: " + result);
+
+        String text = "A man a plan a canal Panama";
+
+        if (isPalindrome(text)) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not a Palindrome");
+        }
     }
 }
