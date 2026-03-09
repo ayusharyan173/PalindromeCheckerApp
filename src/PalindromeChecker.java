@@ -1,13 +1,13 @@
 public class PalindromeChecker {
-    public static boolean isPalindrome(String str) {
+    public boolean checkPalindrome(String text) {
 
-        str = str.replaceAll("\\s+", "").toLowerCase();
+        text = text.replaceAll("\\s+", "").toLowerCase();
 
         int start = 0;
-        int end = str.length() - 1;
+        int end = text.length() - 1;
 
         while (start < end) {
-            if (str.charAt(start) != str.charAt(end)) {
+            if (text.charAt(start) != text.charAt(end)) {
                 return false;
             }
             start++;
@@ -16,12 +16,16 @@ public class PalindromeChecker {
 
         return true;
     }
+}
 
+class Main {
     public static void main(String[] args) {
 
-        String text = "A man a plan a canal Panama";
+        PalindromeChecker checker = new PalindromeChecker();
 
-        if (isPalindrome(text)) {
+        String input = "Madam";
+
+        if (checker.checkPalindrome(input)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
