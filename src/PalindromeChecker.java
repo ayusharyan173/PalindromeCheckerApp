@@ -9,7 +9,6 @@ class StackStrategy implements PalindromeStrategy {
     public boolean checkPalindrome(String text) {
 
         text = text.replaceAll("\\s+", "").toLowerCase();
-
         Stack<Character> stack = new Stack<>();
 
         for (char c : text.toCharArray()) {
@@ -21,7 +20,6 @@ class StackStrategy implements PalindromeStrategy {
                 return false;
             }
         }
-
         return true;
     }
 }
@@ -31,7 +29,6 @@ class DequeStrategy implements PalindromeStrategy {
     public boolean checkPalindrome(String text) {
 
         text = text.replaceAll("\\s+", "").toLowerCase();
-
         Deque<Character> deque = new ArrayDeque<>();
 
         for (char c : text.toCharArray()) {
@@ -43,37 +40,31 @@ class DequeStrategy implements PalindromeStrategy {
                 return false;
             }
         }
-
         return true;
     }
 }
 
 public class PalindromeChecker {
 
-    private PalindromeStrategy strategy;
-
-    public PalindromeChecker(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public boolean check(String text) {
-        return strategy.checkPalindrome(text);
-    }
-
     public static void main(String[] args) {
 
-        String input = "Madam";
+        String input = "A man a plan a canal Panama";
 
-        // Choose algorithm dynamically
-        PalindromeStrategy strategy = new StackStrategy();
-        // PalindromeStrategy strategy = new DequeStrategy();
+        PalindromeStrategy stackAlgo = new StackStrategy();
+        PalindromeStrategy dequeAlgo = new DequeStrategy();
 
-        PalindromeChecker checker = new PalindromeChecker(strategy);
+        long start1 = System.nanoTime();
+        boolean stackResult = stackAlgo.checkPalindrome(input);
+        long end1 = System.nanoTime();
 
-        if (checker.check(input)) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not Palindrome");
-        }
+        long start2 = System.nanoTime();
+        boolean dequeResult = dequeAlgo.checkPalindrome(input);
+        long end2 = System.nanoTime();
+
+        System.out.println("Stack Result: " + stackResult);
+        System.out.println("Stack Time: " + (end1 - start1) + " ns");
+
+        System.out.println("Deque Result: " + dequeResult);
+        System.out.println("Deque Time: " + (end2 - start2) + " ns");
     }
 }
