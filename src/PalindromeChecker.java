@@ -1,66 +1,25 @@
-class Node {
-    char data;
-    Node next;
+public class PalindromeChecker{
+    static boolean isPalindrome(String str, int start, int end) {
 
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
-public class PalindromeChecker {
-    private static Node buildList(String input) {
-        Node head = null, tail = null;
-        for (char c : input.toCharArray()) {
-            Node newNode = new Node(c);
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-        return head;
-    }
-
-    private static Node reverse(Node head) {
-        Node prev = null, curr = head, next;
-        while (curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        return prev;
-    }
-
-    private static boolean isPalindrome(Node head) {
-        if (head == null || head.next == null) return true;
-
-        Node slow = head, fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        if (start >= end) {
+            return true;
         }
 
-        Node secondHalf = reverse(slow);
-
-        Node firstHalf = head;
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
-                return false;
-            }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
         }
-        return true;
+
+        return isPalindrome(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
-        String input = "level";
-        Node head = buildList(input);
-        boolean result = isPalindrome(head);
-        System.out.println("Is Palindrome: " + result);
+
+        String word = "madam";
+
+        if (isPalindrome(word, 0, word.length() - 1)) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not a Palindrome");
+        }
     }
 }
